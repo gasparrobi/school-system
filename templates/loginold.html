@@ -1,0 +1,71 @@
+<html data-wf-page="58863baff3f0d8bb79ea26d6" data-wf-site="58863baff3f0d8bb79ea26d5"
+      xmlns="http://www.w3.org/1999/html">
+    <head>
+      <meta charset="utf-8">
+      <title>codecool school system</title>
+      <meta content="width=device-width, initial-scale=1" name="viewport">
+      <meta content="Webflow" name="generator">
+      <link href="{{ url_for('static', filename='css/normalize.css') }}" rel="stylesheet" type="text/css">
+      <link href="{{ url_for('static', filename='css/webflow.css') }}" rel="stylesheet" type="text/css">
+      <link href="{{ url_for('static', filename='css/codecool-school-system.webflow.css') }}" rel="stylesheet" type="text/css">
+      <link rel="stylesheet" href="{{ url_for('static', filename='css/font-awesome/css/font-awesome.min.css') }}">
+      <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.4.7/webfont.js"></script>
+      <script type="text/javascript">
+        WebFont.load({
+          google: {
+            families: ["Exo:100,100italic,200,200italic,300,300italic,400,400italic,500,500italic,600,600italic,700,700italic,800,800italic,900,900italic"]
+          }
+        });
+      </script>
+      <script src=" {{ url_for('static', filename='js/modernizr.js') }} " type="text/javascript"></script>
+      <script src=" {{ url_for('static', filename='jquery-3.1.1.min.js') }} " type="text/javascript"></script>
+      <script src=" {{ url_for('static', filename='js/webflow.js') }} " type="text/javascript"></script>
+      <script src=" {{ url_for('static', filename='jquery-latest.js') }} " type="text/javascript"></script>
+      <script src=" {{ url_for('static', filename='jquery.tablesorter.js') }} " type="text/javascript"></script>
+      <link href="https://daks2k3a4ib2z.cloudfront.net/img/favicon.ico" rel="shortcut icon" type="image/x-icon">
+      <link href="https://daks2k3a4ib2z.cloudfront.net/img/webclip.png" rel="apple-touch-icon">
+    </head>
+    <body>
+    <div class="header_section">
+        <div class="nav_container w-container"></div>
+        <div class="logo_container w-container">
+            <div class="header_logo"><img class="logo"
+                                          src="{{ url_for('static', filename='images/codeZeroLogo-copy.png') }}"
+                                          width="50">
+            </div>
+            <div class="logo_text">code zero's school system</div>
+        </div>
+    </div>
+
+    {% with messages = get_flashed_messages() %}
+          {% if messages %}
+            <ul class=flashes>
+            {% for message in messages %}
+              <li>{{ message }}</li>
+            {% endfor %}
+            </ul>
+          {% endif %}
+        {% endwith %}
+        {% block body %}{% endblock %}
+        {% from 'macros.html' import render_field %}
+
+
+    <center>
+        <div class="login_backdrop">
+          <form method="POST" action="" class="form">
+              <h3>CODE ZERO</h3>
+              {{ form.hidden_tag() }}
+              {% for field in form %}
+                  {{ render_field(field) }}
+              {% endfor %}
+              <div class="login_reg">
+                <button type="submit" id="submit" class="login">Login</button>
+                <button class="register">
+                  <a href="{{ url_for('register') }}">Register</a>
+                </button>
+              </div>
+          </form>
+        </div>
+    </center>
+    </body>
+</html>

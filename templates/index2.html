@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Codezero Admin</title>
+  <link href="{{ url_for('static', filename='css/main.css') }}" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Hind+Madurai:400,500,600,700" rel="stylesheet">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+</head>
+<body>
+	<div class="main_container">
+		<!-- ##### NAVBAR ##### -->  <!-- ##### NAVBAR ##### -->  <!-- ##### NAVBAR ##### -->
+		<div class="navbar">
+			<div class="nav_container">
+				<div class="logo"><img width="40px;" src="https://codezero.nobrainers.io/static/images/codeZeroLogo-copy.png"></div>
+				<div class="login_reg">
+					<a href="{{ url_for('login') }}">login</a>
+					<a href="{{ url_for('logout') }}">log out</a>
+				</div>
+			</div>
+		</div>
+		<!-- ##### APP CONTAINER ##### -->  <!-- ##### APP CONTAINER ##### -->  <!-- ##### APP CONTAINER ##### -->
+		<div class="app_container">
+			<!-- ##### FILTER LEFT ##### -->  <!-- ##### FILTER LEFT ##### -->  <!-- ##### FILTER LEFT ##### -->
+			<div class="left_cell">
+				<div class="search_card">
+					{% macro render_field(field) %}
+						{{ field(**kwargs)|safe }}
+					{% endmacro %}
+					<form method="POST">
+						{{ form.hidden_tag() }}
+						{{ render_field(form.options, class="select_input") }}
+						<i class="fa fa-search fasearch" aria-hidden="true"></i>
+						{{ render_field(form.name, class="search_input", placeholder="Search") }}
+					</form>
+				</div>
+				<div class="first_card">
+					<a href="#" id="applicant_menu">
+						<div class="menu_item">
+							<div>Applicants</div>
+							<button id="app_button" class="nr active">{{ list_length }}</button>
+						</div>
+					</a>
+					<a href="#" id="mentor_menu">
+						<div class="menu_item">
+							<div>Mentors</div>
+							<button id="mentor_button" class="nr">{{ list_length2 }}</button>
+						</div>
+					</a>
+					<a href="#">
+						<div class="menu_item">
+							<div>Users</div>
+							<button class="nr">10</button>
+						</div>
+					</a>
+					<a href="#">
+						<div class="menu_item">
+							<div>Interviews</div>
+							<button class="nr">2</button>
+						</div>
+					</a>
+				</div>
+				
+				<div class="second_card">
+					
+				</div>
+			</div>
+			<!-- ##### MAIN APPLICATION ##### -->  <!-- ##### MAIN APPLICATION ##### -->  <!-- ##### MAIN APPLICATION ##### -->
+			<div class="right_cell">
+
+				<div class="header_right_cell">
+					<button class="add_button" ><i class="fa fa-plus" aria-hidden="true"></i> Add Applicant</button>
+				</div>
+
+				<!-- #### APPLICANT TABLE #### -->  <!-- #### APPLICANT TABLE #### -->
+				<div class="table_container show" id="applicants">
+					<div class="table_header">
+						<div class="header_cell1">Applicant</div>
+						<div class="header_cell2">App Code</div>
+						<div class="header_cell3">School</div>
+						<div class="header_cell4">Status</div>
+						<div class="header_cell5">Interview</div>
+						<div class="header_cell6">...</div>
+					</div>
+					<!-- #### TABLE ROW #### -->  <!-- #### TABLE ROW #### -->  <!-- #### TABLE ROW #### -->
+					{% for applicant in Applicants %}
+					<div class="table_row">
+						<div class="table_cell1">
+							<div class="avatar">
+								<i class="fa fa-user fa-2x fa-border" aria-hidden="true"></i>
+							</div>
+							<div class="name_email">
+								<div class="name">{{ applicant.first_name }} {{ applicant.last_name }}</div>
+								<div class="email">{{ applicant.email }}</div>
+							</div>
+						</div>
+						<div class="table_cell2">{{ applicant.applicant_id }}</div>
+						<div class="table_cell3">{{ applicant.school.name }}</div>
+						{% if applicant.status == "applied" %}
+						<div class="table_cell4"><span class="status">{{ applicant.status }}</span></div>
+						{% elif applicant.status == "approved" %}
+						<div class="table_cell4"><span class="approved">{{ applicant.status }}</span></div>
+						{% elif applicant.status == "rejected" %}
+						<div class="table_cell4"><span class="rejected">{{ applicant.status }}</span></div>
+						{% endif %}
+						{% if applicant.interview[0] %}
+						<div class="table_cell5">{{ applicant.interview[0].slot.start }}</div>
+						{% else %}
+						<div class="table_cell5">N/A</div>
+						{% endif %}
+						<div class="table_cell6">
+							<a href="{{ url_for('delete_applicant', app_id = applicant.applicant_id) }}"><i class="fa fa-trash-o fa-2x" style="" aria-hidden="true"></i></a>
+							<i class="fa fa-bars fa-2x" aria-hidden="true"></i>
+						</div>
+					</div>
+					{% endfor %}
+				</div>
+				
+				<!-- #### MENTOR TABLE #### -->  <!-- #### MENTOR TABLE #### -->
+				<div class="table_container fade" id="mentors">
+					<div class="table_header">
+						<div class="header_cell1">Mentor</div>
+						<div class="header_cell2">Mentor ID</div>
+						<div class="header_cell3">School</div>
+						<div class="header_cell4">Status</div>
+						<div class="header_cell5">Interview</div>
+						<div class="header_cell6">...</div>
+					</div>
+					<!-- #### TABLE ROW #### -->  <!-- #### TABLE ROW #### -->  <!-- #### TABLE ROW #### -->
+					{% for mentor in Mentors %}
+					<div class="table_row">
+						<div class="table_cell1">
+							<div class="avatar">
+								<i class="fa fa-user fa-2x fa-border" aria-hidden="true"></i>
+							</div>
+							<div class="name_email">
+								<div class="name">{{ mentor.first_name }} {{ mentor.last_name }}</div>
+								<div class="email">{{ mentor.email }}</div>
+							</div>
+						</div>
+						<div class="table_cell2">{{ mentor.id }}</div>
+						<div class="table_cell3">{{ mentor.school.name }}</div>
+						<div class="table_cell4"><span class="rejected">{{ mentor.school.name }}</span></div>
+						<div class="table_cell5">{{ mentor.first_name}}</div>
+						<div class="table_cell6">
+							<a href="{{ url_for('delete_applicant', app_id = mentor.id) }}"><i class="fa fa-trash-o fa-2x" style="" aria-hidden="true"></i></a>
+							<i class="fa fa-bars fa-2x" aria-hidden="true"></i>
+						</div>
+					</div>
+					{% endfor %}
+				</div>
+
+			</div>
+			<!-- ##### END MAIN APPLICATION ##### -->
+		</div>
+		<!-- ##### END APP CONTAINER ##### -->
+	</div>
+	<script type="text/javascript">
+		$("#mentor_menu").click(function(){
+			$("#applicants").removeClass("show");
+			$("#applicants").addClass("fade");
+			$("#mentors").removeClass("fade");
+			$("#mentors").addClass("show");
+			$("#app_button").removeClass("active");
+			$("#mentor_button").addClass("active");
+		});
+	</script>
+	<script type="text/javascript">
+		$("#applicant_menu").click(function(){
+			$("#mentors").removeClass("show");
+			$("#mentors").addClass("fade");
+			$("#applicants").removeClass("fade");
+			$("#applicants").addClass("show");
+			$("#mentor_button").removeClass("active");
+			$("#app_button").addClass("active");
+		});
+	</script>
+</body>
+</html>

@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<!--  This site was created in Webflow. http://www.webflow.com -->
+<!--  Last Published: Mon Jan 23 2017 21:10:57 GMT+0000 (UTC)  -->
+<html data-wf-page="58866f5afbcf41345fe6e41f" data-wf-site="58863baff3f0d8bb79ea26d5">
+<head>
+  <meta charset="utf-8">
+  <title>codecool school system</title>
+  <meta content="width=device-width, initial-scale=1" name="viewport">
+  <meta content="Webflow" name="generator">
+  <link href="{{ url_for('static', filename='css/normalize.css') }}" rel="stylesheet" type="text/css">
+  <link href="{{ url_for('static', filename='css/webflow.css') }}" rel="stylesheet" type="text/css">
+  <link href="{{ url_for('static', filename='css/codecool-school-system.webflow.css') }}" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/font-awesome/css/font-awesome.min.css') }}">
+  <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.4.7/webfont.js"></script>
+  <script type="text/javascript">
+    WebFont.load({
+      google: {
+        families: ["Exo:100,100italic,200,200italic,300,300italic,400,400italic,500,500italic,600,600italic,700,700italic,800,800italic,900,900italic"]
+      }
+    });
+  </script>
+  <script src=" {{ url_for('static', filename='js/modernizr.js') }} " type="text/javascript"></script>
+  <script src=" {{ url_for('static', filename='jquery-3.1.1.min.js') }} " type="text/javascript"></script>
+  <script src=" {{ url_for('static', filename='js/webflow.js') }} " type="text/javascript"></script>
+  <link href="https://daks2k3a4ib2z.cloudfront.net/img/favicon.ico" rel="shortcut icon" type="image/x-icon">
+  <link href="https://daks2k3a4ib2z.cloudfront.net/img/webclip.png" rel="apple-touch-icon">
+</head>
+<body>
+  <div class="header_section">
+    <div class="nav_container w-container"></div>
+    <div class="logo_container w-container">
+      <div class="header_logo"><img class="logo" src="{{ url_for('static', filename='images/codeZeroLogo-copy.png') }}" width="50">
+      </div>
+      <div class="logo_text">code zero's school system</div>
+    </div>
+    <div class="options_container w-container">
+      <div class="options_div">
+        <div class="options_element"><a class="options_button" href="{{ url_for('homepage') }}">Applicants</a>
+          <div class="options_counter"><span>{{ list_length-1 }}</span>
+          </div>
+        </div>
+        <div class="options_element"><a class="options_button" href=" {{ url_for('mentors') }} ">Mentors</a>
+          <div class="is_active options_counter"><span>6</span>
+          </div>
+        </div>
+          <div class="options_element"><a class="options_button" href="{{ url_for('users') }}">Users</a>
+          <div class="options_counter"><span>4</span>
+          </div>
+        </div>
+          <div class="options_element"><a class="options_button" href="{{ url_for('interview') }}">Interviews</a>
+          <div class="options_counter"><span>23</span>
+          </div>
+        </div>
+      </div>
+      <div class="plus_div w-clearfix">
+        <img id="sign" class="plus_sign" src="{{ url_for('static', filename='images/plus.svg') }}" width="50">
+      </div>
+    </div>
+  </div>
+  <div class="body_section">
+    <div class="w-container">
+      <div class="filter_container">
+
+        <form class="inline">
+          <div class="inline selector">
+            <select class="select-style">
+              <option>Filter by name</option>
+              <option>Filter by school</option>
+              <option>Filter by status</option>
+              <option>Filter by time</option>
+              <option>Filter by location</option>
+            </select>
+            <i class="fa fa-angle-down" aria-hidden="true"></i>
+          </div>
+          <div class="inline">
+            <input class="filter_input" type="input" name="" placeholder="filter">
+          </div>
+          <div class="inline">
+            <input class="filter_submit" type="submit" name="">
+          </div>
+        </form>
+
+      </div>
+
+      <div class="filter_container">
+        <button class="btn">Assign ID</button>
+        <button class="btn">Assign School</button>
+        <button class="btn">Assign Interviews</button>
+      </div>
+    </div>
+
+    <div class="body_container w-container">
+      <div class="w-embed">
+        <table class="tablee tablesorter" id="myTable">
+          <thead>
+          <tr>
+              <th>Applicant name <i class="fa fa-angle-down" aria-hidden="true"></i></th>
+              <th>App Code</th>
+            <th>Interview Start <i class="fa fa-angle-down" aria-hidden="true"></i></th>
+            <th>Interview End <i class="fa fa-angle-down" aria-hidden="true"></i></th>
+              <th>Status <i class="fa fa-angle-down" aria-hidden="true"></i></th>
+          </tr>
+          </thead>
+          <tbody>
+          {% for interview in interviews %}
+              <tr class="one normal" id="">
+            <td>
+              <div class="bck">
+                <i class="fa fa-user fa-2x fa-border" aria-hidden="true"></i>
+              </div>
+              <div class="bck">
+                  <p class="person">{{ interview.applicant.first_name }} {{ interview.applicant.last_name }}</p>
+                  <p class="email">{{ interview.applicant.email }}</p>
+              </div>
+            </td>
+                  <td class="email">{{ interview.applicant.applicant_id }}</td>
+                  <td class="email">{{ interview.slot.start }}</td>
+                  <td class="email">{{ interview.slot.end }}</td>
+                  <td class="email">{{ interview.applicant.status }}</td>
+            <td class="last_td">
+                <img src="./static/images/ellipsis.svg" class="dot_dot_dot" id="">
+            </td>
+          </tr>
+
+              <tr class="hidden" id="">
+            <td width="100%" colspan="6">
+              <div class="statistics">
+                <div class="stats">
+                  <div class="sm_card">
+                    <h2>78/100</h2>
+                    <p>English</p>
+                  </div>
+                  <div class="sm_card">
+                    <h2>84/100</h2>
+                    <p>Logic</p>
+                  </div>
+                  <button class="btn">Update</button>
+
+                </div>
+                <div class="stats_last">
+                    <img src="./static/images/rubbish-bin.svg" class="rubbish_bin" id="">
+                </div>
+              </div>
+            </td>
+          </tr>
+          {% endfor %}
+          <tbody>
+        </table>
+    </div>
+    </div>
+  </div>
+  <script type="text/javascript">
+        $("#sign").click(function(){
+          $(".filter_container").toggleClass("show");
+        });
+  </script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js" type="text/javascript"></script>
+  <script src="js/webflow.js" type="text/javascript"></script>
+  <!-- [if lte IE 9]><script src="https://cdnjs.cloudflare.com/ajax/libs/placeholders/3.0.2/placeholders.min.js"></script><![endif] -->
+</body>
+</html>

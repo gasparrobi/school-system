@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Codezero School System</title>
+  <link href="{{ url_for('static', filename='css/main.css') }}" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Hind+Madurai:400,500,600,700" rel="stylesheet">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+</head>
+<body>
+	<div class="main_container">
+
+		<!-- ##### NAVBAR ##### -->  <!-- ##### NAVBAR ##### -->  <!-- ##### NAVBAR ##### -->
+		<div class="navbar" style="">
+			<div class="nav_container">
+				<div class="logo"><img width="40px;" src="https://codezero.nobrainers.io/static/images/codeZeroLogo-copy.png"></div>
+			</div>
+		</div>
+		<div class="login_container">
+			<div class="login_div">
+				
+				{% macro render_field(field) %}
+					{{ field(**kwargs)|safe }}
+				{% endmacro %}
+				<!-- ##### LOGIN LEFT ##### -->  <!-- ##### LOGIN LEFT ##### -->
+				<div class="login_left">
+					<img id="cclogo" src="{{ url_for('static', filename="images/cclogolarge.png") }}" width="150px" alt="">
+					<form method="POST" action="" class="form">
+						{{ form.hidden_tag() }}
+						<div class="input_wrapper">
+							<i class="fa fa-envelope famail" aria-hidden="true"></i>
+							
+							{{ render_field(form.username, class="loginput", placeholder="Username") }}
+						</div>
+						<div class="input_wrapper">
+							<i class="fa fa-unlock-alt fauser" aria-hidden="true"></i>
+							{{ render_field(form.password, class="loginput", placeholder="Password") }}
+						</div>
+						<input type="submit" name="" id="submit" class="login_submit" value="Login">
+					</form>
+					<a href="#" class="orregister" id="reg">or register</a>
+				</div>
+
+				<!-- ##### REGISTER LEFT ##### -->  <!-- ##### REGISTER LEFT ##### -->
+				<div class="register_left">
+					<img id="cclogo" src="{{ url_for('static', filename="images/cclogolarge.png") }}" width="150px" alt="">
+					<form method="POST">
+						{{ form2.hidden_tag() }}
+						<div class="input_wrapper">
+							<i class="fa fa-user fauser" aria-hidden="true"></i>
+
+							{{ render_field(form2.login, class="reginput", placeholder="Username") }}
+						</div>
+						<div class="input_wrapper">
+							<i class="fa fa-user fauser" aria-hidden="true"></i>
+							{{ render_field(form2.first_name, class="reginput", placeholder="First Name") }}
+							{{ render_field(form2.last_name, class="reginput", placeholder="Last Name") }}
+						</div>
+						<div class="input_wrapper">
+							<i class="fa fa-map-marker fauser" aria-hidden="true"></i>
+							{{ render_field(form2.city, class="reginput", placeholder="Location") }}
+						</div>
+						<div class="input_wrapper">
+							<i class="fa fa-envelope famail" aria-hidden="true"></i>
+							
+							{{ render_field(form2.email, class="reginput", placeholder="Email") }}
+						</div>
+						<div class="input_wrapper">
+							<i class="fa fa-unlock-alt fauser" aria-hidden="true"></i>
+							
+							{{ render_field(form2.password, class="reginput", placeholder="Password") }}
+							{{ render_field(form2.password2, class="reginput", placeholder="pw again") }}
+						</div>
+						<input type="submit" name="" class="reg_submit" value="Register">
+					</form>
+					<a href="#" class="orlogin" id="log">or login</a>
+				</div>
+
+				<!-- ##### LOGIN RIGHT ##### -->
+				<div class="login_right">
+					<div class="quote_div">
+						<h3>algorythm</h3>
+						<i class="noun">noun</i>
+						<p>Word used by programmers when they do not want to explain what they did</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript">
+		$("#reg").click(function(){
+			$(".login_left").removeClass("show");
+			$(".login_left").addClass("fade");
+			$(".register_left").removeClass("fade");
+			$(".register_left").addClass("show");
+		});
+	</script>
+	<script type="text/javascript">
+		$("#log").click(function(){
+			$(".register_left").removeClass("show");
+			$(".register_left").addClass("fade");
+			$(".login_left").removeClass("fade");
+			$(".login_left").addClass("show");
+		});
+	</script>
+	
+	<!-- GOOGLE ANALYTICS -->
+	<script>
+	  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+	  ga('create', 'UA-90363422-2', 'auto');
+	  ga('send', 'pageview');
+	</script>
+</body>
