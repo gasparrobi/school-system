@@ -129,7 +129,24 @@ def login():
             flash("You have successfully registered", "success")
             create_user(form2)
             return redirect(url_for("login"))
+        else:
+            flash("Invalid data, please try again", "success")
+            return redirect(url_for("login"))
     return render_template("login.html", form=form, form2=form2)
+
+
+@app.route('/register', methods=["GET", "POST"])
+def register():
+    form2 = forms.RegisterForm()
+    if request.method == "POST" and form2.validate_on_submit():
+        if form2.validate_on_submit():
+            flash("You have successfully registered", "success")
+            create_user(form2)
+            return redirect(url_for("login"))
+        else:
+            flash("Invalid data, please try again", "success")
+            return redirect(url_for("register"))
+    return render_template("register2.html", form2=form2)
 
 
 """ ADMIN HOMEPAGE """
@@ -145,11 +162,12 @@ def homepage():
     list_length = int(len(Applicants))
     list_length2 = int(len(Mentors))
     form = forms.FilterApplicantForm()
-
+    update_form = forms.UpdateApplicantForm()
     if request.method == "GET":
         return render_template(
                                 "index2.html",
                                 form=form,
+                                update_form=update_form,
                                 Applicants=Applicants,
                                 Mentors=Mentors,
                                 list_length=list_length,
@@ -306,21 +324,6 @@ def logout():
 @login_required
 def user_page():
     return render_template("user.html", user=current_user)
-
-
-@app.route('/register', methods=["GET", "POST"])
-def register():
-    if current_user.is_authenticated:
-        if current_user.role != 'admin':
-            return redirect(url_for("user_page"))
-        else:
-            return redirect(url_for("homepage"))
-    form = forms.RegisterForm()
-    if form.validate_on_submit():
-        flash("You have successfully registered", "success")
-        create_user(form)
-        return redirect(url_for("login"))
-    return render_template("register.html", form=form)
 
 
 @app.route('/mentor', methods=["GET", "POST"])

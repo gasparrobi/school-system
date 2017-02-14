@@ -422,9 +422,9 @@ a {
 
 
 .register_left {
-	align-self: right;
+	order: 0;
 	box-sizing: border-box;
-	display: none;
+	display: flex;
 	flex-direction: column;
 	justify-content: flex-start;
 	align-items: flex-start;

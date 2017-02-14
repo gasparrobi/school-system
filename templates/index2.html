@@ -3,9 +3,11 @@
 <head>
   <title>Codezero Admin</title>
   <link href="{{ url_for('static', filename='css/main.css') }}" rel="stylesheet" type="text/css">
+  <link href="{{ url_for('static', filename='css/details.css') }}" rel="stylesheet" type="text/css">
   <link href="https://fonts.googleapis.com/css?family=Hind+Madurai:400,500,600,700" rel="stylesheet">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.js" ></script>
 </head>
 <body>
 	<div class="main_container">
@@ -110,7 +112,45 @@
 						{% endif %}
 						<div class="table_cell6">
 							<a href="{{ url_for('delete_applicant', app_id = applicant.applicant_id) }}"><i class="fa fa-trash-o fa-2x" style="" aria-hidden="true"></i></a>
-							<i class="fa fa-bars fa-2x" aria-hidden="true"></i>
+							<i class="fa fa-bars fa-2x" aria-hidden="true" id="{{ applicant.applicant_id }}"></i>
+						</div>
+					</div>
+					<div class="details_container hide_details" id="hidden-{{ applicant.applicant_id }}">
+						<div class="stats_container">
+							<div class="stats_div">
+								<div class="stat_circle"><span>79%</span></div>		
+								<div class="stat_title"><span>Logic</span></div>		
+							</div>
+							<div class="stats_div">
+								<div class="stat_circle"><span>49%</span></div>		
+								<div class="stat_title"><span>English</span></div>		
+							</div>
+							<div class="stats_div">
+								<div class="stat_circle"><span>99%</span></div>		
+								<div class="stat_title"><span>Interview</span></div>		
+							</div>
+						</div>
+						<div class="chart_container">
+							<div class="chart_div">
+								<img src="{{ url_for('static', filename='images/radar.png') }}">
+							</div>
+						</div>
+						<div class="update_container">
+							<div class="update_div">
+								{% macro render_field(field) %}
+									{{ field(**kwargs)|safe }}
+								{% endmacro %}
+								<form method="POST">
+									{{ update_form.hidden_tag() }}
+									<div class="update_item">
+									<label for="update_email" style="font-size: 0.8em;">Email:</label>
+									{{ render_field(update_form.email, id="update_email", value=applicant.email) }}
+									</div>
+									<div class="update_item">
+									<input type="submit" name="" value="update email">
+									</div>
+								</form>
+							</div>
 						</div>
 					</div>
 					{% endfor %}
@@ -173,6 +213,12 @@
 			$("#applicants").addClass("show");
 			$("#mentor_button").removeClass("active");
 			$("#app_button").addClass("active");
+		});
+	</script>
+	
+	<script type="text/javascript">
+		$(".fa-bars").click(function(){
+			$("#hidden-"+this.id).toggleClass("show_details");
 		});
 	</script>
 </body>

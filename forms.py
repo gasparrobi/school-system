@@ -109,13 +109,8 @@ class FilterApplicantForm(Form):
                                                 ])
 
 
-
-
-
-
-
-
-
+class UpdateApplicantForm(Form):
+    email = StringField("update_email", validators=[DataRequired()])
 
 
 
